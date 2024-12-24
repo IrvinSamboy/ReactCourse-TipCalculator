@@ -1,5 +1,6 @@
 import Header from "./components/Header"
 import Menu from "./components/Menu"
+import Order from "./components/Order"
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         </div>
         <div>
           <h1 className=" mb-7 font-black text-3xl">Order</h1>
+          <Order />
         </div>
       </div>
     </div>
