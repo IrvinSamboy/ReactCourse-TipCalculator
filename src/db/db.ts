@@ -1,9 +1,4 @@
-
-interface menuItemsI {
-    id: number,
-    name: string,
-    price: number
-}
+import { menuItemsI } from "../interfaces/interfaces"
 
 export const menuItems : menuItemsI[] = [
     {
