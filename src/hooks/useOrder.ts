@@ -3,7 +3,7 @@ import { menuItemsI, orderI } from "../interfaces/interfaces";
 
 const useOrder = () => {
     const [order, setOrder] = useState<orderI[]>([])
-
+    const [tip, setTip] = useState(0)
     const insertItem = (orderItem : menuItemsI) => {
         const index = order.findIndex(item => item.id === orderItem.id)
         if(index >= 0) {
@@ -26,10 +26,27 @@ const useOrder = () => {
         setOrder(orderDeleted)
     }
 
+    const getSubtotal = () : number =>{
+        return order.reduce((acumulator, currentvalue) => 
+            acumulator + (currentvalue.price * currentvalue.quantity), 0)
+    }
+
+    const getTip = () : number => {
+        return tip * getSubtotal()
+    }
+
+    const getTotal = (tip : number) : number => {
+        return getSubtotal() + getTip()
+    }
+
     return {
         order,
+        setTip,
         insertItem,
-        deleteItem
+        deleteItem,
+        getTotal,
+        getTip,
+        getSubtotal
     }
 
 }
