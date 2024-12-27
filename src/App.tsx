@@ -1,9 +1,12 @@
 import Header from "./components/Header"
 import Menu from "./components/Menu"
 import Order from "./components/Order"
+import useOrder from "./hooks/useOrder"
 
 function App() {
 
+
+  const { order, insertItem, deleteItem } = useOrder()
   return (
     <div className="w-screen">
       <Header />
@@ -11,11 +14,16 @@ function App() {
       ">
         <div>
           <h1 className=" mb-7 font-black text-3xl">Menu</h1>
-          <Menu />
+          <Menu
+            insertItem={insertItem}
+          />
         </div>
         <div>
           <h1 className=" mb-7 font-black text-3xl">Order</h1>
-          <Order />
+          <Order
+            order={order}
+            deleteItem={deleteItem}
+          />
         </div>
       </div>
     </div>

@@ -1,9 +1,5 @@
 import { useState } from "react";
-import { menuItemsI } from "../interfaces/interfaces";
-
-interface orderI extends menuItemsI {
-    quantity: number
-}
+import { menuItemsI, orderI } from "../interfaces/interfaces";
 
 const useOrder = () => {
     const [order, setOrder] = useState<orderI[]>([])
@@ -13,12 +9,12 @@ const useOrder = () => {
         if(index >= 0) {
             const newOrder = order.map(item => {
                 if(item.id === orderItem.id) {
-                    return {...orderItem, quantity: item.quantity++}
+                    return {...orderItem, quantity: item.quantity + 1}
                 }
                 return item
             })
-
             setOrder(newOrder)
+            console.log(newOrder)
         }
         else{
             setOrder([...order, {...orderItem, quantity: 1}])

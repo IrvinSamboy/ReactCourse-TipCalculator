@@ -1,12 +1,15 @@
 import { menuItems } from "../db/db"
+import { menuItemsI } from "../interfaces/interfaces";
+interface menuPropsI {
+    insertItem: (item: menuItemsI) => void 
+}
 
-
-export default function Menu() {
+export default function Menu({insertItem} : menuPropsI) {
     return (
         <div>
             {
                 menuItems.map(item => (
-                    <div key={item.id} 
+                    <div key={item.id} onClick={() => insertItem(item)}
                             className="w-full flex justify-between p-3 
                             border-[#26CEB7] border-solid border-2 mb-3 
                             rounded-md font-semibold cursor-pointer hover:bg-[#8CF5DF]"
