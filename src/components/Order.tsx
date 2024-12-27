@@ -3,9 +3,13 @@ import { orderI } from "../interfaces/interfaces"
 interface OrderPropsI {
     order: orderI[];
     deleteItem: (id: number) => void
+    getSubtotal: () => number 
+    getTotal: () => number
+    getTip: () => number
+    setTip: (value: number) => void
 }
 
-export default function Order({ order, deleteItem }: OrderPropsI) {
+export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip, getTip }: OrderPropsI) {
     return (
         <div className=" px-2">
             {
@@ -29,23 +33,23 @@ export default function Order({ order, deleteItem }: OrderPropsI) {
                             <h2 className="text-2xl font-black mb-2">Tip:</h2>
                             <div className="flex gap-2">
                                 <label htmlFor="10">10%</label>
-                                <input type="radio" id="10" />
+                                <input type="radio" id="10" name="tip" onChange={() => setTip(0.10)} />
                             </div>
                             <div className="flex gap-2">
                                 <label htmlFor="20">20%</label>
-                                <input type="radio" id="10" />
+                                <input type="radio" id="20" name="tip" onChange={() => setTip(0.20)} />
                             </div>
                             <div className="flex gap-2">
                                 <label htmlFor="50">50%</label>
-                                <input type="radio" id="50" />
+                                <input type="radio" id="50" name="tip" onChange={() => setTip(0.50)} />
                             </div>
                         </div>
                         <div>
                             <h2 className="text-2xl font-black mb-2">Total and tips:</h2>
                             <div className="flex flex-col gap-3">
-                                <p>Subtotal: <span className="font-bold">$100.00</span></p>
-                                <p>Tip: <span className="font-bold">$10.00</span></p>
-                                <p>Total: <span className="font-bold">$100.00</span></p>
+                                <p>Subtotal: <span className="font-bold">${getSubtotal()}</span></p>
+                                <p>Tip: <span className="font-bold">${getTip()}</span></p>
+                                <p>Total: <span className="font-bold">${getTotal()}</span></p>
                             </div>
                         </div>
                         <button className="text-white bg-black w-full p-3 font-bold mt-5">SAVE ORDER</button>
