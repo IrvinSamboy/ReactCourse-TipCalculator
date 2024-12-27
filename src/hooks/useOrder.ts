@@ -35,7 +35,7 @@ const useOrder = () => {
         return tip * getSubtotal()
     }
 
-    const getTotal = (tip : number) : number => {
+    const getTotal = () : number => {
         return getSubtotal() + getTip()
     }
 
