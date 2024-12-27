@@ -7,9 +7,10 @@ interface OrderPropsI {
     getTotal: () => number
     getTip: () => number
     setTip: (value: number) => void
+    saveOrder: () => void
 }
 
-export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip, getTip }: OrderPropsI) {
+export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip, getTip, saveOrder }: OrderPropsI) {
     return (
         <div className=" px-2">
             {
@@ -52,7 +53,10 @@ export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip
                                 <p>Total: <span className="font-bold">${getTotal()}</span></p>
                             </div>
                         </div>
-                        <button className="text-white bg-black w-full p-3 font-bold mt-5">SAVE ORDER</button>
+                        <button 
+                            className="text-white bg-black w-full p-3 font-bold mt-5"
+                            onClick={saveOrder}
+                        >SAVE ORDER</button>
                     </>
                     : <p className="text-xl text-center">You have no orders</p>
             }

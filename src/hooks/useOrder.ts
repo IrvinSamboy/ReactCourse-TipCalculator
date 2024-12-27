@@ -39,6 +39,11 @@ const useOrder = () => {
         return getSubtotal() + getTip()
     }
 
+    const saveOrder = () => {
+        setOrder([])
+        localStorage.setItem('order', JSON.stringify(order))
+    }
+
     return {
         order,
         setTip,
@@ -46,7 +51,8 @@ const useOrder = () => {
         deleteItem,
         getTotal,
         getTip,
-        getSubtotal
+        getSubtotal,
+        saveOrder
     }
 
 }

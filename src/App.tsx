@@ -6,7 +6,7 @@ import useOrder from "./hooks/useOrder"
 function App() {
 
 
-  const { order, insertItem, deleteItem, getSubtotal, getTotal, getTip, setTip } = useOrder()
+  const { order, insertItem, deleteItem, getSubtotal, getTotal, getTip, setTip, saveOrder } = useOrder()
   return (
     <div className="w-screen">
       <Header />
@@ -27,6 +27,7 @@ function App() {
             getTotal={getTotal}
             setTip={setTip}
             getTip={getTip}
+            saveOrder={saveOrder}
           />
         </div>
       </div>
