@@ -1,7 +1,8 @@
 import { menuItemsI, orderI } from "../interfaces/interfaces"
 
 export type orderActions = 
-    {type: 'insert-item', payload: {newItem: menuItemsI}}
+    {type: 'insert-item', payload: {newItem: menuItemsI}} |
+    {type: 'delete-item', payload: {id: number}}
 
 export type orderState = {
     order: orderI[]
@@ -43,6 +44,14 @@ export const orderReducer = (
                 ...state,
                 order: [...order, {...actions.payload.newItem, quantity: 1}]
             }
+        }
+    }
+
+    else if(type === 'delete-item') {
+        const orderDeleted = order.filter(item => item.id !== actions.payload.id)
+        returnState = {
+            ...state,
+            order: orderDeleted
         }
     }
 
