@@ -4,7 +4,7 @@ export type orderActions =
     {type: 'insert-item', payload: {newItem: menuItemsI}}
 
 export type orderState = {
-    order: orderI
+    order: orderI[]
     tip: number
 }
 
@@ -18,7 +18,34 @@ export const orderReducer = (
     actions: orderActions
 ) => {
 
+    let returnState = state
+
     const {type} = actions
     const {order, tip} = state
+
+    if(type === 'insert-item') {
+        const index = order.findIndex(item => item.id === actions.payload.newItem.id)
+        if(index >= 0) {
+            const newOrder = order.map(item => {
+                if(item.id === actions.payload.newItem.id) {
+                    return {...actions.payload.newItem, quantity: item.quantity + 1}
+                }
+                return item
+            })
+            
+            returnState = {
+                ...state,
+                order: newOrder
+            }
+        }
+        else{
+            returnState = {
+                ...state,
+                order: [...order, {...actions.payload.newItem, quantity: 1}]
+            }
+        }
+    }
+
+    return returnState
 
 }
