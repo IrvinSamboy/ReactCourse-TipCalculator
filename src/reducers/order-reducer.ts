@@ -76,8 +76,7 @@ export const orderReducer = (
     else if(type === 'get-total') {
         returnState = {
             ...state,
-            subtotal: order.reduce((acumulator, currentvalue) => 
-                acumulator + (currentvalue.price * currentvalue.quantity), 0)
+            subtotal: subtotal + (tipPercentage * subtotal)
         }
     }
 
@@ -94,8 +93,6 @@ export const orderReducer = (
             subtotal: tipPercentage * subtotal
         }
     }
-
-    
 
     return returnState
 
