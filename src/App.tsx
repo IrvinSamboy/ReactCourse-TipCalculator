@@ -22,7 +22,7 @@ function App() {
         <div>
           <h1 className=" mb-7 font-black text-3xl">Order</h1>
           <Order
-            order={state.order}
+            state={state}
             dispatch={dispatch}
 
           />

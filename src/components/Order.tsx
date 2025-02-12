@@ -1,20 +1,33 @@
-import { orderI } from "../interfaces/interfaces"
-import { orderActions } from "../reducers/order-reducer";
+import { useMemo } from "react";
+import { orderActions, orderState } from "../reducers/order-reducer";
 
 interface OrderPropsI {
-    order: orderI[];
+    state: orderState
     dispatch: React.Dispatch<orderActions>
-    
 }
 
-export default function Order({ order, dispatch }: OrderPropsI) {
+export default function Order({ state, dispatch }: OrderPropsI) {
+
+    const getSubTotal = useMemo(() => {
+        return state.order.reduce(
+            (acumulator, currentvalue) => acumulator + (currentvalue.price * currentvalue.quantity), 0)
+        }, [state.order])
+
+    const getTip = useMemo(() => {
+        return state.tipPercentage * getSubTotal
+    }, [state.order])
+
+    const getTotal = useMemo(() => {
+        return getSubTotal * getTip
+    } , [state.order])
+
     return (
         <div className=" px-2">
             {
-                order.length > 0 ?
+                state.order.length > 0 ?
                     <>
                         {
-                            order.map((item) => (
+                            state.order.map((item) => (
                                 <div className="flex justify-between py-6 items-center">
                                     <div className="font-semibold">
                                         <p>{item.name} - ${item.price}</p>
@@ -51,9 +64,9 @@ export default function Order({ order, dispatch }: OrderPropsI) {
                         <div>
                             <h2 className="text-2xl font-black mb-2">Total and tips:</h2>
                             <div className="flex flex-col gap-3">
-                                <p>Subtotal: <span className="font-bold">${getSubtotal()}</span></p>
-                                <p>Tip: <span className="font-bold">${getTip()}</span></p>
-                                <p>Total: <span className="font-bold">${getTotal()}</span></p>
+                                <p>Subtotal: <span className="font-bold">${getSubTotal}</span></p>
+                                <p>Tip: <span className="font-bold">${getTip}</span></p>
+                                <p>Total: <span className="font-bold">${getTotal}</span></p>
                             </div>
                         </div>
                         <button 
