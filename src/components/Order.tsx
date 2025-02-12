@@ -11,15 +11,15 @@ export default function Order({ state, dispatch }: OrderPropsI) {
     const getSubTotal = useMemo(() => {
         return state.order.reduce(
             (acumulator, currentvalue) => acumulator + (currentvalue.price * currentvalue.quantity), 0)
-        }, [state.order])
+        }, [state])
 
     const getTip = useMemo(() => {
         return state.tipPercentage * getSubTotal
-    }, [state.order])
+    }, [state])
 
     const getTotal = useMemo(() => {
         return getSubTotal * getTip
-    } , [state.order])
+    } , [state])
 
     return (
         <div className=" px-2">
@@ -71,7 +71,7 @@ export default function Order({ state, dispatch }: OrderPropsI) {
                         </div>
                         <button 
                             className="text-white bg-black w-full p-3 font-bold mt-5"
-                            onClick={saveOrder}
+                            onClick={() => dispatch({type: 'save-order'})}
                         >SAVE ORDER</button>
                     </>
                     : <p className="text-xl text-center">You have no orders</p>

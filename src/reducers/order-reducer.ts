@@ -3,7 +3,8 @@ import { menuItemsI, orderI } from "../interfaces/interfaces"
 export type orderActions = 
     {type: 'insert-item', payload: {newItem: menuItemsI}} |
     {type: 'delete-item', payload: {id: number}} |
-    {type: 'set-tip-percentage', payload: {percentage : number}}
+    {type: 'set-tip-percentage', payload: {percentage : number}} |
+    {type: 'save-order'}
 
 export type orderState = {
     order: orderI[]
@@ -60,6 +61,15 @@ export const orderReducer = (
         returnState = {
             ...state,
             tipPercentage: actions.payload.percentage
+        }
+    }
+    else if(type === 'save-order') {
+
+        localStorage.setItem('order', JSON.stringify(order))
+
+        returnState = {
+            order: [],
+            tipPercentage: 0
         }
     }
 
