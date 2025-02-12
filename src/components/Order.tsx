@@ -18,7 +18,7 @@ export default function Order({ state, dispatch }: OrderPropsI) {
     }, [state])
 
     const getTotal = useMemo(() => {
-        return getSubTotal * getTip
+        return getSubTotal + getTip
     } , [state])
 
     return (
