@@ -56,6 +56,13 @@ export const orderReducer = (
         }
     }
 
+    else if(type === 'set-tip-percentage') {
+        returnState = {
+            ...state,
+            tipPercentage: actions.payload.percentage
+        }
+    }
+
     return returnState
 
 }
