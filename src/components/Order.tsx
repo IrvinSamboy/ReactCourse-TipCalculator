@@ -1,16 +1,13 @@
 import { orderI } from "../interfaces/interfaces"
+import { orderActions } from "../reducers/order-reducer";
 
 interface OrderPropsI {
     order: orderI[];
-    deleteItem: (id: number) => void
-    getSubtotal: () => number 
-    getTotal: () => number
-    getTip: () => number
-    setTip: (value: number) => void
-    saveOrder: () => void
+    dispatch: React.Dispatch<orderActions>
+    
 }
 
-export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip, getTip, saveOrder }: OrderPropsI) {
+export default function Order({ order, dispatch }: OrderPropsI) {
     return (
         <div className=" px-2">
             {
@@ -25,7 +22,7 @@ export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip
                                     </div>
                                     <p
                                         className="bg-red-500 text-white px-[11.5px] py-1 rounded-full cursor-pointer"
-                                        onClick={() => deleteItem(item.id)}
+                                        onClick={() => dispatch({type: 'delete-item', payload: {id : item.id}})}
                                     >X</p>
                                 </div>
                             ))
@@ -34,15 +31,21 @@ export default function Order({ order, deleteItem, getSubtotal, getTotal, setTip
                             <h2 className="text-2xl font-black mb-2">Tip:</h2>
                             <div className="flex gap-2">
                                 <label htmlFor="10">10%</label>
-                                <input type="radio" id="10" name="tip" onChange={() => setTip(0.10)} />
+                                <input type="radio" id="10" name="tip" 
+                                onChange={() => dispatch({type: 'set-tip-percentage', payload: {percentage: 0.10}})} 
+                                />
                             </div>
                             <div className="flex gap-2">
                                 <label htmlFor="20">20%</label>
-                                <input type="radio" id="20" name="tip" onChange={() => setTip(0.20)} />
+                                <input type="radio" id="20" name="tip"
+                                onChange={() => dispatch({type: 'set-tip-percentage', payload: {percentage: 0.20}})} 
+                                />
                             </div>
                             <div className="flex gap-2">
                                 <label htmlFor="50">50%</label>
-                                <input type="radio" id="50" name="tip" onChange={() => setTip(0.50)} />
+                                <input type="radio" id="50" name="tip" 
+                                onChange={() => dispatch({type: 'set-tip-percentage', payload: {percentage: 0.50}})}
+                                />
                             </div>
                         </div>
                         <div>

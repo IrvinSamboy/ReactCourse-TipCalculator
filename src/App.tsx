@@ -1,12 +1,13 @@
+import { useReducer } from "react"
 import Header from "./components/Header"
 import Menu from "./components/Menu"
 import Order from "./components/Order"
-import useOrder from "./hooks/useOrder"
+import { initialState, orderReducer } from "./reducers/order-reducer"
 
 function App() {
 
+  const [state, dispatch] = useReducer(orderReducer, initialState)
 
-  const { order, insertItem, deleteItem, getSubtotal, getTotal, getTip, setTip, saveOrder } = useOrder()
   return (
     <div className="w-screen">
       <Header />
@@ -15,19 +16,15 @@ function App() {
         <div>
           <h1 className=" mb-7 font-black text-3xl">Menu</h1>
           <Menu
-            insertItem={insertItem}
+            dispatch={dispatch}
           />
         </div>
         <div>
           <h1 className=" mb-7 font-black text-3xl">Order</h1>
           <Order
-            order={order}
-            deleteItem={deleteItem}
-            getSubtotal={getSubtotal}
-            getTotal={getTotal}
-            setTip={setTip}
-            getTip={getTip}
-            saveOrder={saveOrder}
+            order={state.order}
+            dispatch={dispatch}
+
           />
         </div>
       </div>
